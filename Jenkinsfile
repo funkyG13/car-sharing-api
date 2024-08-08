@@ -8,7 +8,7 @@ pipeline {
 		}
 		stage("Build"){
 			steps {	
-				dir("car-sharing-api") {
+				dir("car-sharing-api/backend/carsharingapi") {
 					sh "mvn clean install"
 				}
 			}
