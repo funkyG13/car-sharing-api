@@ -27,7 +27,7 @@ pipeline {
                 dir("car-sharing-api/backend/carsharingapi") {
                     withSonarQubeEnv('MySonarQubeServer') { 
                         sh "mvn sonar:sonar \
-                            -Dsonar.projectKey=car-sharing-api \
+                            -Dsonar.projectKey=Car-Sharing-Api \
                             -Dsonar.host.url=${SONARQUBE_URL} \
                             -Dsonar.login=${SONARQUBE_TOKEN}"
                     }
