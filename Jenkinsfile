@@ -29,21 +29,10 @@ pipeline {
                         sh "mvn sonar:sonar \
                             -Dsonar.projectKey=Car-Sharing-Api \
                             -Dsonar.host.url=${SONARQUBE_URL} \
-                            -Dsonar.login=sqp_3ad0e67f22af5bc353b40a70e90a3f4bfebb9683"
+                            -Dsonar.token=sqp_3ad0e67f22af5bc353b40a70e90a3f4bfebb9683"
                     }
                 }
             }
         }
     }
-	node {
-		stage('SCM') {
-			checkout scm
-	}
-		stage('SonarQube Analysis') {
-			withSonarQubeEnv() {
-				sh "mvn clean verify sonar:sonar -Dsonar.projectKey=Car-Sharing-Api -Dsonar.projectName='Car Sharing Api'"
-    }
-  }
-}
-
 }
