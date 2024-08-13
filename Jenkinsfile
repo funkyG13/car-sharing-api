@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage("SonarQube Analysis") {
+        stage("SonarQube Analysis Backend") {
             steps {
                 dir("car-sharing-api/backend/carsharingapi") {
                     withSonarQubeEnv('MySonarQubeServer') { 
@@ -32,6 +32,11 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+	  post {
+        always {
+            cleanWs()
         }
     }
 }
