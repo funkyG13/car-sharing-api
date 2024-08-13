@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment {
-        SONARQUBE_URL = 'localhost:9000' 
-       // SONARQUBE_TOKEN = credentials("")
+        SONARQUBE_URL = 'http://localhost:9000' 
     }
     stages {
         stage("Clean up") {
