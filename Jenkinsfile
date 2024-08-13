@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         SONARQUBE_URL = 'http://localhost:9000' 
-        SONARQUBE_TOKEN = credentials('sonar-token')
+        SONARQUBE_TOKEN = credentials('sqp_3ad0e67f22af5bc353b40a70e90a3f4bfebb9683')
     }
     stages {
         stage("Clean up") {
@@ -25,7 +25,7 @@ pipeline {
         stage("SonarQube Analysis") {
             steps {
                 dir("car-sharing-api/backend/carsharingapi") {
-                    withSonarQubeEnv('MySonarQubeServer') { // Name of the SonarQube server in Jenkins config
+                    withSonarQubeEnv('MySonarQubeServer') { 
                         sh "mvn sonar:sonar \
                             -Dsonar.projectKey=car-sharing-api \
                             -Dsonar.host.url=${SONARQUBE_URL} \
@@ -35,10 +35,5 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            junit '**/target/surefire-reports/*.xml' // If there are test results
-            cleanWs() // Clean workspace after the build
-        }
-    }
+
 }
