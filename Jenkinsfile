@@ -33,6 +33,19 @@ pipeline {
                 }
             }
         }
+		  stage("SonarQube Analysis - Frontend") {
+            steps {
+                dir("car-sharing-api/frontend") {
+                    withSonarQubeEnv('MySonarQubeServer') {
+                        sh "npx sonar-scanner \
+                            -Dsonar.projectKey=Car-Sharing-Api-Frontend \
+                            -Dsonar.sources=/src \
+                            -Dsonar.host.url=${SONARQUBE_URL} \
+                            -Dsonar.login=${SONARQUBE_TOKEN}"
+                    }
+                }
+            }
+        }
     }
 	  post {
         always {
