@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 @Service
 public class EmailServiceImpl implements EmailService {
-
+//test
     private final JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
