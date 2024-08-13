@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         SONARQUBE_URL = 'http://localhost:9000' 
-        SONARQUBE_TOKEN = credentials('sqp_3ad0e67f22af5bc353b40a70e90a3f4bfebb9683')
+        SONARQUBE_TOKEN = credentials(sqp_3ad0e67f22af5bc353b40a70e90a3f4bfebb9683)
     }
     stages {
         stage("Clean up") {
