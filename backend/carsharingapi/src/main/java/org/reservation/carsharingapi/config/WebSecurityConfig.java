@@ -25,7 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
+//test
     private final CustomOAuth2UserService customOauth2UserService;
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
