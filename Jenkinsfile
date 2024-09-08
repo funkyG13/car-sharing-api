@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        SONARQUBE_URL = 'http://192.168.1.13:9000' 
+        SONARQUBE_URL = 'http://192.168.1.13:9000'
+        SONARQUBE_TOKEN = 'sqp_ec8d16d461e469ec2fb48a779279b059ec156195'
     }
     stages {
         stage("Clean up") {
@@ -28,7 +29,7 @@ pipeline {
                         sh "mvn sonar:sonar \
                             -Dsonar.projectKey=Car-Sharing-Api \
                             -Dsonar.host.url=${SONARQUBE_URL} \
-                            -Dsonar.token=sqp_3ad0e67f22af5bc353b40a70e90a3f4bfebb9683"
+                            -Dsonar.token=${SONARQUBE_TOKEN}"
                     }
                 }
             }
