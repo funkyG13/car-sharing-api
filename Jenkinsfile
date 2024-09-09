@@ -41,7 +41,7 @@ pipeline {
                     // Run nmap inside the docker container with appropriate network settings
                     docker.image('instrumentisto/nmap').inside('--network host') {
                         // Use only the hostname for nmap
-                        sh 'nmap -sV -p- antelope-accurate-bluejay.ngrok-free.app'
+                        sh 'docker run --rm --network host instrumentisto/nmap nmap -sV -p- antelope-accurate-bluejay.ngrok-free.app'
                     }
                 }
             }
