@@ -33,8 +33,19 @@ pipeline {
                     }
                 }
             }
+        }stage('Dynamic Analysis') {
+            steps {
+                script {
+                    docker.image('sqlmapproject/sqlmap').inside {
+                        sh 'sqlmap -u https://antelope-accurate-bluejay.ngrok-free.app  --batch --crawl=2'
+                    }
+                    docker.image('instrumentisto/nmap').inside {
+                        sh 'nmap -sV -p- https://antelope-accurate-bluejay.ngrok-free.app'
+                    }
+                }
+            }
         }
-        
+
     }
 	  post {
         always {
