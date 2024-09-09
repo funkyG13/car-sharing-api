@@ -33,6 +33,7 @@ pipeline {
                     }
                 }
             }
+			}
         }stage('Dynamic Analysis') {
             steps {
                 script {
