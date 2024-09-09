@@ -33,8 +33,8 @@ pipeline {
                     }
                 }
             }
-			}
-        }stage('Dynamic Analysis') {
+        }
+		stage('Dynamic Analysis') {
             steps {
                 script {
                     docker.image('sqlmapproject/sqlmap').inside {
