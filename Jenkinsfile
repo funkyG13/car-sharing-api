@@ -35,11 +35,13 @@ pipeline {
                 }
             }
         }
-		stage('Dynamic Analysis') {
+        stage('Dynamic Analysis') {
             steps {
                 script {
-                    docker.image('instrumentisto/nmap').inside {
-                        sh 'nmap -sV -p- https://antelope-accurate-bluejay.ngrok-free.app'
+                    // Run nmap inside the docker container with appropriate network settings
+                    docker.image('instrumentisto/nmap').inside('--network host') {
+                        // Use only the hostname for nmap
+                        sh 'nmap -sV -p- antelope-accurate-bluejay.ngrok-free.app'
                     }
                 }
             }
