@@ -3,6 +3,8 @@ pipeline {
     environment {
         SONARQUBE_URL = 'http://192.168.1.59:9000'
         SONARQUBE_TOKEN = 'sqp_ec8d16d461e469ec2fb48a779279b059ec156195'
+        ZAP_URL = 'http://localhost:8090'
+        ZAP_API_KEY = 'bp5fargka4kg3cjc9hk1hpm8uo'
     }
     stages {
         stage("Clean up") {
@@ -57,6 +59,9 @@ pipeline {
 	  post {
         always {
             cleanWs()
+        }
+        success {
+            archiveArtifacts artifacts: 'zap_report.html', allowEmptyArchive: true
         }
     }
 }
