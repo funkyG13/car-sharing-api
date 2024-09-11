@@ -35,6 +35,23 @@ pipeline {
                 }
             }
         }
+		stage("ZAP Scan") {
+            steps {
+                script {
+                    // Start ZAP in daemon mode
+                    sh "zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.key=${ZAP_API_KEY} &"
+                    sleep(time: 10, unit: 'SECONDS') // Wait for ZAP to start
+                    
+                    // Run ZAP Baseline Scan
+                    sh """
+                    zap-baseline.py -t http:// https://antelope-accurate-bluejay.ngrok-free.app/ \
+                                    -r zap_report.html \
+                                    -g gen.conf \
+                                    -d
+                    """
+                }
+            }
+        }
 
     }
 	  post {
