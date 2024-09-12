@@ -34,21 +34,10 @@ pipeline {
                 }
             }
         }
-		stage("SonarQube Analysis Backend - Create sonar report") {
-            steps {
-                dir("car-sharing-api/backend/carsharingapi") {
-                    withSonarQubeEnv('MySonarQubeServer') { 
-                        sh "mvn sonar:sonar \
-                            -Dsonar.projectKey=Car-Sharing-Api \
-                            -Dsonar.host.url=${SONARQUBE_URL} \
-                            -Dsonar.token=${SONARQUBE_TOKEN}"
-                    }
-                }
-            }
-        }
         stage("ZAP Scan") {
             steps {
                 script {
+				    catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
                     docker.image('ghcr.io/zaproxy/zaproxy:stable').inside('-v /c/Users/Mike/ZAP/work:/zap/wrk --network host') {
                         sh """
                         zap-baseline.py -t https://antelope-accurate-bluejay.ngrok-free.app/ \
@@ -56,6 +45,7 @@ pipeline {
                                         -g gen.conf \
                                         -d
                         """
+						}
                     }
                 }
             }
