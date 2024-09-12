@@ -26,7 +26,7 @@ pipeline {
             steps {
                 dir("car-sharing-api/backend/carsharingapi") {
                     withSonarQubeEnv('MySonarQubeServer') { 
-                        sh "mvn sonar:scanner \
+                        sh "mvn sonar:sonar \
                             -Dsonar.projectKey=Car-Sharing-Api \
                             -Dsonar.host.url=${SONARQUBE_URL} \
                             -Dsonar.token=${SONARQUBE_TOKEN}"
