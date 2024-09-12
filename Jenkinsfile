@@ -37,17 +37,18 @@ pipeline {
             }
         }
 
-		stage("ZAP Scan") {
+        stage("ZAP Scan") {
             steps {
                 script {
-                    // Run ZAP Baseline Scan inside the running container
-                    sh """
-                    docker exec -i 47348f9edbc05a293b4e29703d4612e6040d2fa09b95beb2b6dcca343a11f975 zap-baseline.py \
-                        -t https://antelope-accurate-bluejay.ngrok-free.app/ \
-                        -r zap_report.html \
-                        -g gen.conf \
-                        -d
-                    """
+                    // Run ZAP Baseline Scan inside Docker container
+                    docker.image('ghcr.io/zaproxy/zaproxy:stable').inside {
+                        sh """
+                        zap-baseline.py -t https://antelope-accurate-bluejay.ngrok-free.app/ \
+                                        -r zap_report.html \
+                                        -g gen.conf \
+                                        -d
+                        """
+                    }
                 }
             }
         }
