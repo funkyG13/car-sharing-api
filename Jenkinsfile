@@ -45,6 +45,10 @@ pipeline {
                                         -g gen.conf \
                                         -d
                         """
+						echo "Exit code: ${STATUS}"
+						if (STATUS != 0) {
+							echo "Error: ${ERROR_MESSAGE}"
+						}
                     }
                 }
             }
