@@ -26,6 +26,18 @@ pipeline {
             steps {
                 dir("car-sharing-api/backend/carsharingapi") {
                     withSonarQubeEnv('MySonarQubeServer') { 
+                        sh "mvn sonar:scanner \
+                            -Dsonar.projectKey=Car-Sharing-Api \
+                            -Dsonar.host.url=${SONARQUBE_URL} \
+                            -Dsonar.token=${SONARQUBE_TOKEN}"
+                    }
+                }
+            }
+        }
+		stage("SonarQube Analysis Backend - Create sonar report") {
+            steps {
+                dir("car-sharing-api/backend/carsharingapi") {
+                    withSonarQubeEnv('MySonarQubeServer') { 
                         sh "mvn sonar:sonar \
                             -Dsonar.projectKey=Car-Sharing-Api \
                             -Dsonar.host.url=${SONARQUBE_URL} \
@@ -34,7 +46,6 @@ pipeline {
                 }
             }
         }
-		
         stage("ZAP Scan") {
             steps {
                 script {
@@ -45,10 +56,6 @@ pipeline {
                                         -g gen.conf \
                                         -d
                         """
-						echo "Exit code: ${STATUS}"
-						if (STATUS != 0) {
-							echo "Error: ${ERROR_MESSAGE}"
-						}
                     }
                 }
             }
