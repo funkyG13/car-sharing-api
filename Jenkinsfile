@@ -17,7 +17,7 @@ pipeline {
         stage("ZAP Scan") {
             steps {
                 script {
-                    docker.image('ghcr.io/zaproxy/zaproxy:stable').inside('--network host') {
+                    docker.image('ghcr.io/zaproxy/zaproxy:stable').inside('-v /c/Users/Mike/ZAP/work:/zap/wrk --network host') {
                         sh """
                         zap-baseline.py -t https://antelope-accurate-bluejay.ngrok-free.app/ \
                                         -r zap_report.html \
