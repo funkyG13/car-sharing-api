@@ -24,7 +24,6 @@ pipeline {
                 }
             }
         }
-
         stage("SonarQube Analysis Backend") {
             steps {
                 dir("car-sharing-api/backend/carsharingapi") {
@@ -37,19 +36,17 @@ pipeline {
                 }
             }
         }
+
 		stage("ZAP Scan") {
             steps {
                 script {
-                    // Start ZAP in daemon mode
-                    sh "zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.key=${ZAP_API_KEY} &"
-                    sleep(time: 10, unit: 'SECONDS') // Wait for ZAP to start
-                    
-                    // Run ZAP Baseline Scan
+                    // Run ZAP Baseline Scan inside the running container
                     sh """
-                    zap-baseline.py -t http:// https://antelope-accurate-bluejay.ngrok-free.app/ \
-                                    -r zap_report.html \
-                                    -g gen.conf \
-                                    -d
+                    docker exec -i 47348f9edbc05a293b4e29703d4612e6040d2fa09b95beb2b6dcca343a11f975 zap-baseline.py \
+                        -t https://antelope-accurate-bluejay.ngrok-free.app/ \
+                        -r zap_report.html \
+                        -g gen.conf \
+                        -d
                     """
                 }
             }
