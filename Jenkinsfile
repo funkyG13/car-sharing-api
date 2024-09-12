@@ -12,30 +12,7 @@ pipeline {
                 deleteDir()
             }
         }
-        stage("Clone Repo") {
-            steps {
-                sh "git clone https://github.com/funkyG13/car-sharing-api.git"
-            }
-        }
-        stage("Build") {
-            steps {
-                dir("car-sharing-api/backend/carsharingapi") {
-                    sh "mvn clean package"
-                }
-            }
-        }
-        stage("SonarQube Analysis Backend") {
-            steps {
-                dir("car-sharing-api/backend/carsharingapi") {
-                    withSonarQubeEnv('MySonarQubeServer') { 
-                        sh "mvn sonar:sonar \
-                            -Dsonar.projectKey=Car-Sharing-Api \
-                            -Dsonar.host.url=${SONARQUBE_URL} \
-                            -Dsonar.token=${SONARQUBE_TOKEN}"
-                    }
-                }
-            }
-        }
+
 
         stage("ZAP Scan") {
             steps {
