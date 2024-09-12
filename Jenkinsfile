@@ -34,6 +34,7 @@ pipeline {
                 }
             }
         }
+		
         stage("ZAP Scan") {
             steps {
                 script {
